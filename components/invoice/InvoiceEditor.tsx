@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useId, useState, type ChangeEvent, type ReactNode } from "react";
+import { track } from "@/lib/analytics";
 import { calculateTotals } from "@/lib/invoice/calculations";
 import { formatMoney } from "@/lib/invoice/formatting";
 import { clearDraft, loadDraft, saveDraft } from "@/lib/invoice/persistence";
@@ -135,8 +136,10 @@ export function InvoiceEditor() {
   const totals = calculateTotals(invoice);
   const money = (minor: number) => formatMoney(minor, invoice.currency);
 
-  const update = (patch: Partial<Invoice> | ((inv: Invoice) => Partial<Invoice>)) =>
+  const update = (patch: Partial<Invoice> | ((inv: Invoice) => Partial<Invoice>)) => {
+    track("invoice_started", {}, { once: true });
     setInvoice((inv) => inv && { ...inv, ...(typeof patch === "function" ? patch(inv) : patch), updatedAt: new Date().toISOString() });
+  };
   const setBusiness = (key: keyof Invoice["business"]) => (value: string) =>
     update((inv) => ({ business: { ...inv.business, [key]: value } }));
   const setCustomer = (key: keyof Invoice["customer"]) => (value: string) =>
@@ -189,6 +192,7 @@ export function InvoiceEditor() {
       const url = URL.createObjectURL(await renderInvoicePdf(invoice!));
       const a = Object.assign(document.createElement("a"), { href: url, download: pdfFileName(invoice!) });
       a.click();
+      track("pdf_downloaded", { template: invoice!.template, currency: invoice!.currency, items: invoice!.items.length });
       setTimeout(() => URL.revokeObjectURL(url), 10_000);
     } catch {
       setMessage("Sorry, the PDF could not be created. Please try again, or use Print and choose “Save as PDF”.");
@@ -198,7 +202,9 @@ export function InvoiceEditor() {
   }
 
   function print() {
-    if (ready()) window.print();
+    if (!ready()) return;
+    track("invoice_printed", { template: invoice!.template, currency: invoice!.currency });
+    window.print();
   }
 
   function startNew() {
@@ -283,7 +289,17 @@ export function InvoiceEditor() {
                       invoice.template === t ? "border-brand-700 bg-brand-50 text-brand-800" : "border-gray-300 text-gray-700"
                     }`}
                   >
-                    <input type="radio" name="template" value={t} checked={invoice.template === t} onChange={() => update({ template: t })} className="sr-only" />
+                    <input
+                      type="radio"
+                      name="template"
+                      value={t}
+                      checked={invoice.template === t}
+                      onChange={() => {
+                        update({ template: t });
+                        track("template_selected", { template: t });
+                      }}
+                      className="sr-only"
+                    />
                     <span aria-hidden className="size-3 rounded-full" style={{ background: TEMPLATE_THEMES[t].accent }} />
                     {TEMPLATE_THEMES[t].name}
                   </label>

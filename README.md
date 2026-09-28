@@ -32,6 +32,7 @@ npm run dev        # http://localhost:3000
 Copy `.env.example` to `.env.local`:
 
 - `NEXT_PUBLIC_SITE_URL` — production URL for canonical URLs, Open Graph and the sitemap (defaults to `http://localhost:3000`).
+- `NEXT_PUBLIC_GA_ID` — optional GA4 measurement ID. Without it no analytics code is loaded.
 - `NEXT_PUBLIC_ADSENSE_CLIENT`, `NEXT_PUBLIC_ADSENSE_SLOT` — optional. Without them no ad code is loaded.
 
 ## Architecture
@@ -51,6 +52,7 @@ lib/invoice/
   persistence.ts           localStorage draft load/save with corrupt-data handling
   templates.ts             Template themes and the formatted view model
   pdf.tsx                  @react-pdf/renderer document and download helper (lazy-loaded)
+lib/analytics.ts           GA4 event helper (no-op unless NEXT_PUBLIC_GA_ID is set)
 public/fonts/              Noto Sans (latin + latin-ext) for GH₵ and Ghanaian letters (Ɛ, Ɔ)
 tests/                     Vitest suites
 ```
@@ -67,7 +69,7 @@ tests/                     Vitest suites
 
 ## Privacy
 
-No accounts, no analytics, no server storage. Drafts live in the user's browser; “Delete saved data” below the form removes them.
+No accounts, no server storage. Optional GA4 receives page views and anonymous events (`invoice_started`, `template_selected`, `pdf_downloaded`, `invoice_printed`) with only template, currency and item count — never invoice contents. Drafts live in the user's browser; “Delete saved data” below the form removes them.
 
 ## Deployment
 

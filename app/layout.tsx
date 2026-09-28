@@ -1,5 +1,7 @@
+import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import { GA_ID } from "@/lib/analytics";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -71,6 +73,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
       </body>
+      {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
   );
 }

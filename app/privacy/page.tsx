@@ -24,6 +24,13 @@ export default function PrivacyPage() {
         </li>
       </ul>
 
+      <h2>Analytics</h2>
+      <p>
+        We may use Google Analytics to count page views and anonymous actions, such as when an invoice is started, a template is chosen, or a PDF is downloaded
+        or printed. Only the template, currency and number of items are recorded with these actions — never names, addresses, amounts or other invoice
+        contents. Google Analytics uses cookies; see Google’s privacy policy for details.
+      </p>
+
       <h2>Advertising</h2>
       <p>
         Guide pages may show adverts from third-party providers such as Google AdSense. Those providers may use cookies to show and measure adverts, as described
