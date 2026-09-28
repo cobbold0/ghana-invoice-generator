@@ -53,6 +53,7 @@ lib/invoice/
   templates.ts             Template themes and the formatted view model
   pdf.tsx                  @react-pdf/renderer document and download helper (lazy-loaded)
 lib/analytics.ts           GA4 event helper (no-op unless NEXT_PUBLIC_GA_ID is set)
+lib/consent.ts             Google Consent Mode v2 defaults and updates
 public/fonts/              Noto Sans (latin + latin-ext) for GH₵ and Ghanaian letters (Ɛ, Ɔ)
 tests/                     Vitest suites
 ```
@@ -70,6 +71,10 @@ tests/                     Vitest suites
 ## Privacy
 
 No accounts, no server storage. Optional GA4 receives page views and anonymous events (`invoice_started`, `template_selected`, `pdf_downloaded`, `invoice_printed`) with only template, currency and item count — never invoice contents. Drafts live in the user's browser; “Delete saved data” below the form removes them.
+
+## Cookie consent
+
+When GA or AdSense is configured, a banner asks for consent (Google Consent Mode v2). Ads always show: `ad_storage` is granted by default so non-personalised ads work. `ad_user_data`, `ad_personalization` and `analytics_storage` stay denied until the visitor clicks “Accept”; “No thanks” also sets AdSense `requestNonPersonalizedAds`. The choice is stored in `localStorage` and can be changed from “Cookie settings” in the footer.
 
 ## Deployment
 

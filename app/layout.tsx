@@ -1,7 +1,10 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
+import Script from "next/script";
+import { ConsentBanner, ConsentSettingsButton } from "@/components/site/ConsentBanner";
 import { GA_ID } from "@/lib/analytics";
+import { CONSENT_NEEDED, consentDefaultScript } from "@/lib/consent";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -33,6 +36,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en-GH">
       <body className="flex min-h-screen flex-col">
+        {CONSENT_NEEDED && (
+          <Script id="consent-default" strategy="beforeInteractive">
+            {consentDefaultScript}
+          </Script>
+        )}
         <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2">
           Skip to content
         </a>
@@ -66,12 +74,16 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                   </Link>
                 </li>
               ))}
+              <li>
+                <ConsentSettingsButton />
+              </li>
             </ul>
             <p className="mt-6">
               {SITE_NAME} creates invoices only. It is not accounting or tax-filing software. Invoice details stay in your browser.
             </p>
           </div>
         </footer>
+        <ConsentBanner />
       </body>
       {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>

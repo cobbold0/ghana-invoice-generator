@@ -2,19 +2,20 @@
 
 import Script from "next/script";
 import { useEffect } from "react";
+import { ADSENSE_CLIENT as client } from "@/lib/consent";
 
-const client = process.env.NEXT_PUBLIC_ADSENSE_CLIENT;
 const slot = process.env.NEXT_PUBLIC_ADSENSE_SLOT;
 
 /**
  * A clearly labelled ad unit for content pages only. Renders nothing until AdSense
- * is configured. Never place this in the editor, the preview or near export buttons.
+ * is configured. Ads show whether or not the visitor consents; without consent they are
+ * non-personalised (see lib/consent.ts). Never place this in the editor, the preview or near export buttons.
  */
 export function AdSlot() {
   useEffect(() => {
     if (!client || !slot) return;
     try {
-      ((window as unknown as { adsbygoogle: unknown[] }).adsbygoogle ||= []).push({});
+      (window.adsbygoogle ||= []).push({});
     } catch {
       // Blocked by an ad blocker or not ready: leave the slot empty.
     }

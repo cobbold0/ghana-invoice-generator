@@ -28,14 +28,18 @@ export default function PrivacyPage() {
       <p>
         We may use Google Analytics to count page views and anonymous actions, such as when an invoice is started, a template is chosen, or a PDF is downloaded
         or printed. Only the template, currency and number of items are recorded with these actions — never names, addresses, amounts or other invoice
-        contents. Google Analytics uses cookies; see Google’s privacy policy for details.
+        contents. Analytics cookies are only used if you accept them in the cookie banner.
       </p>
 
       <h2>Advertising</h2>
       <p>
-        Guide pages may show adverts from third-party providers such as Google AdSense. Those providers may use cookies to show and measure adverts, as described
-        in their own privacy policies. Adverts are not shown in the invoice editor and are never included in your invoices.
+        Guide pages may show adverts from third-party providers such as Google AdSense. Adverts are shown whether or not you accept cookies. If you accept,
+        adverts may be personalised to your interests; if you choose “No thanks”, you see non-personalised adverts, which may still use cookies for things
+        like limiting how often an advert appears and preventing fraud. Adverts are not shown in the invoice editor and are never included in your invoices.
       </p>
+
+      <h2>Changing your choice</h2>
+      <p>Use “Cookie settings” at the bottom of any page to change your choice at any time.</p>
 
       <h2>Hosting</h2>
       <p>Like any website, our hosting provider may keep standard server logs (such as IP address and pages requested) for security and reliability.</p>

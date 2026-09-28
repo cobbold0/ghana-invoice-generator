@@ -7,7 +7,7 @@
 - Review the three invoice templates and sample PDF output.
 - Verify any statutory tax functionality before launch. Currently none is built in: users enter their own tax names and rates. The Ghana page tells VAT-registered users that GRA may require invoices through approved systems (E-VAT) — confirm this wording with an accountant.
 - Create a GA4 property and set `NEXT_PUBLIC_GA_ID` (e.g. `G-XXXXXXXXXX`) in the hosting environment, then redeploy. Consider marking `pdf_downloaded` as a key event in GA4.
-- Decide whether a cookie-consent banner is needed for GA/AdSense in your target markets (not built; GA loads on every page once configured).
+- If the site will serve visitors in the EEA, UK or Switzerland, Google requires a Google-certified consent platform (IAB TCF) for AdSense there — e.g. enable AdSense “Privacy & messaging” for those regions. The built-in banner is fine for Ghana but is not TCF-certified.
 - Apply for Google AdSense when ready, then set `NEXT_PUBLIC_ADSENSE_CLIENT` and `NEXT_PUBLIC_ADSENSE_SLOT`, and add `public/ads.txt`. Keep AdSense **Auto ads off** so ads cannot be injected into the editor.
 - Review the privacy page and any legal requirements (e.g. Ghana Data Protection Act, cookie consent for ads).
 - Submit the sitemap in Google Search Console after launch.
@@ -21,7 +21,6 @@
 - Cloud synchronization (would require accounts and a privacy review)
 - Open Graph images for social sharing
 - Receipt and quotation modes
-- Cookie-consent banner with Google Consent Mode
 - Browser end-to-end tests in CI (Playwright)
 
 ## Completed
@@ -41,4 +40,5 @@ Verified by lint, type-check, 41 unit/PDF tests, production build, and manual br
 - SEO pages: `/`, `/invoice-generator`, `/free-invoice-generator`, `/invoice-templates`, `/invoice-template-ghana`, `/how-to-write-an-invoice`, `/invoice-vs-receipt`, `/privacy`
 - Unique titles, descriptions, canonical URLs, Open Graph, one H1 per page, WebApplication JSON-LD, sitemap.xml, robots.txt, internal links
 - Optional Google Analytics 4 (`NEXT_PUBLIC_GA_ID`): page views plus anonymous `invoice_started`, `template_selected`, `pdf_downloaded`, `invoice_printed` events carrying only template, currency and item count (verified in browser)
+- Cookie consent banner with Google Consent Mode v2: shown only when GA or AdSense is configured; ads always show, while personalised ads and analytics cookies wait for “Accept”; “No thanks” gives non-personalised ads; choice stored locally and changeable via “Cookie settings” in the footer (verified in browser)
 - AdSense-ready ad slot on content pages only, disabled until configured; no ads in the editor or PDFs
