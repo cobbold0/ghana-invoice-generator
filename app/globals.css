@@ -1,0 +1,102 @@
+@import "tailwindcss";
+
+/* Same Noto Sans files as the PDF, so the preview matches the download. */
+@font-face {
+  font-family: "Noto Sans";
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/noto-sans-latin-400-normal.woff") format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/noto-sans-latin-700-normal.woff") format("woff");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-weight: 400;
+  font-display: swap;
+  src: url("/fonts/noto-sans-latin-ext-400-normal.woff") format("woff");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+@font-face {
+  font-family: "Noto Sans";
+  font-weight: 700;
+  font-display: swap;
+  src: url("/fonts/noto-sans-latin-ext-700-normal.woff") format("woff");
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@theme {
+  --font-sans: "Noto Sans", ui-sans-serif, system-ui, sans-serif;
+  --color-brand-50: #f0fdfa;
+  --color-brand-100: #ccfbf1;
+  --color-brand-600: #0d9488;
+  --color-brand-700: #0f766e;
+  --color-brand-800: #115e59;
+}
+
+@layer base {
+  body {
+    @apply bg-white text-gray-900 antialiased;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-brand-600;
+  }
+}
+
+/* Long-form content pages */
+.prose-page h2 {
+  @apply mt-10 mb-3 text-xl font-bold text-gray-900;
+}
+.prose-page h3 {
+  @apply mt-6 mb-2 font-bold text-gray-900;
+}
+.prose-page p,
+.prose-page ul,
+.prose-page ol,
+.prose-page table {
+  @apply mb-4 leading-7 text-gray-700;
+}
+.prose-page ul {
+  @apply list-disc pl-6;
+}
+.prose-page ol {
+  @apply list-decimal pl-6;
+}
+.prose-page li {
+  @apply mb-1;
+}
+.prose-page a {
+  @apply font-medium text-brand-700 underline underline-offset-2 hover:text-brand-800;
+}
+.prose-page th,
+.prose-page td {
+  @apply border border-gray-200 px-3 py-2 text-left align-top;
+}
+.prose-page th {
+  @apply bg-gray-50 font-semibold text-gray-900;
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 14mm 0;
+  }
+  body {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  /* Print the invoice at true A4 width (595pt → 210mm). */
+  .invoice-zoom {
+    zoom: 1.3333 !important;
+  }
+  .invoice-page {
+    min-height: 0 !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+  }
+}
