@@ -1,0 +1,10 @@
+# Ghana Invoice Generator
+
+> Free, browser-based professional invoice generator for Ghanaian freelancers, businesses, and contractors.
+
+## Core Tools & Guides
+- [Invoice Generator Tool](https://invoicegenerator.cobbold.dev/invoice-generator): Compose, customize, preview in real time, and download standard A4 PDF invoices in Ghana Cedis.
+- [Invoice Templates](https://invoicegenerator.cobbold.dev/invoice-templates): Free Modern, Classic, and Minimal invoice templates formatted for Ghanaian commerce.
+- [Ghana Invoice Template Guide](https://invoicegenerator.cobbold.dev/invoice-template-ghana): Best practices for adding MTN MoMo, Telecel Cash, bank routing, and GRA tax details.
+- [How to Write an Invoice](https://invoicegenerator.cobbold.dev/how-to-write-an-invoice): Comprehensive guide on essential invoice elements, sequential numbering, and payment terms.
+- [Invoice vs Receipt Guide](https://invoicegenerator.cobbold.dev/invoice-vs-receipt): Key legal and bookkeeping differences between invoicing and issuing receipts.

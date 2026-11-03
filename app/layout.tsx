@@ -2,6 +2,7 @@ import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import Script from "next/script";
+import { AdRailsLayout } from "@/components/ads/AdRailsLayout";
 import { ConsentBanner, ConsentSettingsButton } from "@/components/site/ConsentBanner";
 import { GA_ID } from "@/lib/analytics";
 import { CONSENT_NEEDED, consentDefaultScript } from "@/lib/consent";
@@ -29,6 +30,7 @@ const footerLinks = [
   { href: "/invoice-template-ghana", label: "Invoice template for Ghana" },
   { href: "/how-to-write-an-invoice", label: "How to write an invoice" },
   { href: "/invoice-vs-receipt", label: "Invoice vs receipt" },
+  { href: "/sitemap-directory", label: "Sitemap directory" },
   { href: "/privacy", label: "Privacy" },
 ];
 
@@ -61,8 +63,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             </nav>
           </div>
         </header>
-        <main id="main" className="flex-1">
-          {children}
+        <main id="main" className="flex-1 py-4">
+          <AdRailsLayout>{children}</AdRailsLayout>
         </main>
         <footer className="mt-16 border-t border-gray-200 bg-gray-50 print:hidden">
           <div className="mx-auto max-w-6xl px-4 py-8 text-sm text-gray-600">

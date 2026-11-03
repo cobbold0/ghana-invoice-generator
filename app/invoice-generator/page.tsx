@@ -1,5 +1,7 @@
 import Link from "next/link";
 import { InvoiceEditor } from "@/components/invoice/InvoiceEditor";
+import { AdSlot } from "@/components/site/AdSlot";
+import { AddThis } from "@/components/social/AddThis";
 import { pageMetadata } from "@/lib/site";
 
 export const metadata = pageMetadata({
@@ -11,26 +13,37 @@ export const metadata = pageMetadata({
 
 export default function InvoiceGeneratorPage() {
   return (
-    <div className="mx-auto max-w-7xl px-4 py-6">
-      <div className="mb-4 print:hidden">
-        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Invoice generator</h1>
-        <p className="mt-1 text-gray-700">Fill in the form, check the preview, then download your PDF. Your draft is saved automatically in this browser.</p>
+    <div className="mx-auto max-w-5xl px-4 py-4">
+      <div className="mb-6 print:hidden">
+        <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">Invoice Generator</h1>
+        <p className="mt-1 text-gray-700">
+          Fill in the form, check the real-time preview, then download your professional PDF invoice. Your draft is saved automatically in this browser.
+        </p>
       </div>
 
       <InvoiceEditor />
 
-      <section className="prose-page mt-16 max-w-3xl print:hidden" aria-labelledby="tips">
-        <h2 id="tips">Tips for a clear invoice</h2>
+      {/* Ad Placement: Right after invoice editor / download controls */}
+      <AdSlot variant="inline" label="Advertisement" className="my-8" />
+
+      {/* Social Share Bar */}
+      <AddThis className="my-6" />
+
+      <section className="prose-page mt-12 max-w-3xl print:hidden" aria-labelledby="tips">
+        <h2 id="tips">Tips for Creating Clear Invoices in Ghana</h2>
         <ul>
-          <li>Use a unique invoice number for every invoice. The next number is suggested when you click “New”.</li>
-          <li>Describe each item so your customer can match it to what they ordered — dates, quantities and deliverables help.</li>
-          <li>Put your Mobile Money or bank details under payment instructions so the customer knows exactly how to pay.</li>
-          <li>Only add VAT or levies if they apply to your business. The generator never adds tax automatically.</li>
+          <li><strong>Unique Invoice Numbering:</strong> Always assign sequential invoice identifiers (e.g. INV-2026-001) for proper book-keeping and audits.</li>
+          <li><strong>Itemised Descriptions:</strong> Specify project milestones, deliverables, quantities, and hourly rates so clients can verify services.</li>
+          <li><strong>Mobile Money & Banking Details:</strong> Provide MTN MoMo, Telecel Cash, or bank details clearly in payment instructions for prompt settlement.</li>
+          <li><strong>Ghana Revenue Authority (GRA) Tax Compliance:</strong> If your business is VAT-registered, include your TIN/Ghana Card number and standard GRA statutory levies (NHIL, GETFund, COVID-19, VAT).</li>
         </ul>
         <p>
-          New to invoicing? Read <Link href="/how-to-write-an-invoice">how to write an invoice</Link> or compare the <Link href="/invoice-templates">invoice templates</Link>.
+          Need more guidance? Explore <Link href="/how-to-write-an-invoice">how to write an invoice</Link>, browse <Link href="/invoice-templates">invoice templates</Link>, or read the <Link href="/invoice-vs-receipt">difference between an invoice and a receipt</Link>.
         </p>
       </section>
+
+      {/* Second Ad Placement: Below tips */}
+      <AdSlot variant="inline" label="Sponsored Links" className="my-8" />
     </div>
   );
 }
