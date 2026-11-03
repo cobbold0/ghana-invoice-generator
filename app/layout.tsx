@@ -5,7 +5,8 @@ import Script from "next/script";
 import { AdRailsLayout } from "@/components/ads/AdRailsLayout";
 import { ConsentBanner, ConsentSettingsButton } from "@/components/site/ConsentBanner";
 import { GA_ID } from "@/lib/analytics";
-import { CONSENT_NEEDED, consentDefaultScript } from "@/lib/consent";
+import { ADSENSE_CLIENT, CONSENT_NEEDED, consentDefaultScript } from "@/lib/consent";
+import { MONETIZATION } from "@/lib/monetization";
 import { SITE_NAME, SITE_URL } from "@/lib/site";
 import "./globals.css";
 
@@ -14,6 +15,9 @@ export const metadata: Metadata = {
   title: { default: `Free Invoice Generator for Ghana | ${SITE_NAME}`, template: `%s | ${SITE_NAME}` },
   description: "Create professional invoices in Ghana cedis and download them as PDFs. Free, no account required.",
   applicationName: SITE_NAME,
+  other: {
+    "google-adsense-account": ADSENSE_CLIENT,
+  },
 };
 
 export const viewport: Viewport = { themeColor: "#0f766e" };
@@ -86,6 +90,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </div>
         </footer>
         <ConsentBanner />
+        {ADSENSE_CLIENT && (
+          <Script
+            src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT}`}
+            strategy="afterInteractive"
+            crossOrigin="anonymous"
+          />
+        )}
+        {MONETIZATION.astraPopunderUrl && (
+          <Script
+            src={MONETIZATION.astraPopunderUrl}
+            strategy="afterInteractive"
+          />
+        )}
       </body>
       {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>

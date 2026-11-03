@@ -20,6 +20,8 @@ import {
 } from "@/lib/invoice/schema";
 import { TEMPLATE_THEMES } from "@/lib/invoice/templates";
 import { validateInvoice, type ValidationErrors } from "@/lib/invoice/validation";
+import { AdGatedDownloadModal } from "@/components/ads/AdGatedDownloadModal";
+import { useAdGatedDownload } from "@/components/ads/useAdGatedDownload";
 import { InvoicePreview } from "./InvoicePreview";
 
 const fieldId = (path: string) => `f-${path.replace(/\./g, "-")}`;
@@ -183,8 +185,7 @@ export function InvoiceEditor() {
     return false;
   }
 
-  async function downloadPdf() {
-    if (!ready()) return;
+  async function executePdfDownload() {
     setBusy(true);
     setMessage("");
     try {
@@ -199,6 +200,15 @@ export function InvoiceEditor() {
     } finally {
       setBusy(false);
     }
+  }
+
+  const { clickCount, isModalOpen, setIsModalOpen, handleDownloadClick, handleModalConfirm } = useAdGatedDownload({
+    onFinalDownload: executePdfDownload,
+  });
+
+  function onDownloadButtonClick() {
+    if (!ready()) return;
+    handleDownloadClick();
   }
 
   function print() {
@@ -250,8 +260,19 @@ export function InvoiceEditor() {
           <button type="button" onClick={print} className={secondaryButton}>
             Print
           </button>
-          <button type="button" onClick={downloadPdf} disabled={busy} className={`${buttonClass} bg-brand-700 text-white hover:bg-brand-800`}>
-            {busy ? "Preparing PDF…" : "Download PDF"}
+          <button
+            type="button"
+            onClick={onDownloadButtonClick}
+            disabled={busy}
+            className={`${buttonClass} bg-brand-700 text-white hover:bg-brand-800 transition relative`}
+          >
+            {busy
+              ? "Preparing PDF…"
+              : clickCount === 1
+                ? "Click to Continue (2/3)"
+                : clickCount === 2
+                  ? "Final Click to Open (3/3)"
+                  : "Download PDF"}
           </button>
         </div>
         {message && (
@@ -509,6 +530,14 @@ export function InvoiceEditor() {
           </div>
         </div>
       </div>
+
+      <AdGatedDownloadModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onDownload={handleModalConfirm}
+        fileName={invoice?.invoiceNumber ? `${invoice.invoiceNumber}.pdf` : "Invoice.pdf"}
+        fileType="Invoice PDF"
+      />
     </div>
   );
 }
