@@ -103,6 +103,12 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             strategy="afterInteractive"
           />
         )}
+        {MONETIZATION.astraSocialBarUrl && (
+          <Script
+            src={MONETIZATION.astraSocialBarUrl}
+            strategy="afterInteractive"
+          />
+        )}
       </body>
       {GA_ID && <GoogleAnalytics gaId={GA_ID} />}
     </html>
